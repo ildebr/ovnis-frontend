@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signup } from "../actions/auth";
 import axios from "axios";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 import Loader from "react-loader-spinner";
 import { Redirect } from "react-router-dom";
-const Signup = ({signup, isAuthenticated, loading}) => {
+import { Errormsg} from "../components/common/Error/Errormsg"
+const Signup = ({signup, isAuthenticated, loading, error, state}) => {
     
     const [formData, setFormData] = useState({
         email: "",
-        password: "",
         user_name: "",
+        password: "",
+        
     });
 
     const {email, password, user_name} = formData
 
+    // useEffect(()=>{
+    //     console.log(state)
+    // }, [state])
 
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log('subir')
         signup(user_name, email, password);
     }
         
@@ -31,8 +35,11 @@ const Signup = ({signup, isAuthenticated, loading}) => {
     return (
         <div>
 
-            {loading ? 'CARGANDOO' : "no"}
+            {loading ? <Loader /> : "no"}
+            {error && <div class='error__message'>{error.msg}</div>}
     <h2>Alo perra</h2>
+
+    <Errormsg />
 
     
     <form onSubmit={(e) => onSubmit(e)}>
@@ -79,6 +86,8 @@ const Signup = ({signup, isAuthenticated, loading}) => {
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     loading: state.auth.loading,
+    error: state.alert.alert,
+    state: state
   }); 
 
 export default connect(mapStateToProps, {signup})(Signup)

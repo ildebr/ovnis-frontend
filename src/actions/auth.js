@@ -81,32 +81,34 @@ export const signup = (user_name, email, password) => async dispatch => {
     });
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);
-
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/register/`, body, config);
         if (res.status === 201) {
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data
             });
-            dispatch(setAlert('We sent you an email, please activate your account', 'success'));
+            dispatch(setAlert('Account created', 'success'));
         } else {
             dispatch({
                 type: SIGNUP_FAIL
             });
-            dispatch(setAlert('Error creating account', 'danger'));
+            dispatch(setAlert('Error creating account, email or username already used', 'dangerss'+res.body));
+            console.log(res)
+            console.log(res.data)
         }
 
         dispatch({
             type: REMOVE_AUTH_LOADING
         });
     } catch (err) {
+        console.log(err)
         dispatch({
             type: SIGNUP_FAIL
         });
         dispatch({
             type: REMOVE_AUTH_LOADING
         });
-        dispatch(setAlert('Error creating account', 'danger'));
+        dispatch(setAlert('Error creating account email or username already taken', 'danger'+ err ));
     }
 };
 

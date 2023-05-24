@@ -29,7 +29,8 @@ const initialState = {
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
     user: null,
-    loading: false
+    loading: false,
+    errMsg: ''
 };
 
 export default function(state = initialState, action) {
@@ -98,6 +99,11 @@ export default function(state = initialState, action) {
             }
         case SIGNUP_SUCCESS:
         case SIGNUP_FAIL:
+            // var msg = payload.errMsg
+            // return {
+            //     ...state,
+            //     errMsg
+            // }
         case LOGIN_FAIL:
         case GOOGLE_AUTH_FAIL:
         case FACEBOOK_AUTH_FAIL:

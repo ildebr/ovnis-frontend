@@ -38,7 +38,7 @@ function App() {
       <Router> 
         <Layout>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/:sightingPageParams' component={Home} />
             <Route exact path='/sighting/:id' component={SightingDetail} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
