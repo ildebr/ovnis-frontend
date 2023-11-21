@@ -1,0 +1,182 @@
+$background-main : #222;
+$background-second : black;
+
+$borderr : 1px solid black;
+
+
+body{
+    background-color: $background-main;
+}
+ 
+
+    .auth-form{
+        height: 65%;
+        width: 100%;
+        align-self: flex-end;
+        border-top-right-radius: 25px;
+        border-top-left-radius: 25px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    h2{
+        margin-bottom: 2rem;
+    }
+
+    label{
+        width: 100%;
+        position: relative;
+
+        .input-placeholder{
+            position: absolute;
+            bottom: 50%;
+            transform: translateY(50%);
+            left: 1rem;
+            transition: .3s ease;
+            color: rgb(182, 182, 182);
+            pointer-events: none;
+            
+        }
+
+        input:focus + span, input.username__input:valid + span{
+            bottom: 100%;  
+            font-size: 85%;
+            font-weight: 700;
+        }
+
+        // input:not(:placeholder-shown) + span{
+        //     bottom: 100%;  
+        //     font-size: 85%;
+        //     font-weight: 700;
+        //     background-color: red;
+        // }
+    }
+
+    input{
+        width: 100%;
+        display: block;
+        background-color: $background-main;
+        color: white;
+
+        &[type=text]{
+            
+            border: none;
+            // border-radius: $borderr;
+            
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgb(228, 228, 228);
+
+            &:focus{
+                outline-color: transparent;
+                background-color: black;
+            }
+        }
+
+        &[type=email]{
+            
+            border: none;
+            // border-radius: $borderr;
+            
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgb(228, 228, 228);
+
+            &:focus{
+                outline-color: transparent;
+                background-color: black;
+            }
+        }
+
+        &[type=password]{
+            
+            border: none;
+            // border-radius: $borderr;
+            
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgb(228, 228, 228);
+
+            &:focus{
+                outline-color: transparent;
+                background-color: black;
+            }
+        }
+
+        &[type=submit]{
+            background-color: black;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            border-radius: $borderr;
+            padding: 1rem 1rem;
+            cursor: pointer;
+            font-weight: 700;
+
+        }
+    }
+
+    select{
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border-radius: $borderr;
+        background: $background-second;
+        color: black;
+
+    }
+
+    .radio-buttons{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 3rem;
+        margin-bottom: 2rem;
+        
+        *{
+            width: 100%;
+        }
+
+        label{
+            border: 2px solid rgb(65, 65, 65);
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            aspect-ratio: 1/1;
+            max-width: 66px;
+            margin: 0 auto;
+            padding: 0.35rem;
+            input{
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: fit-content;
+
+            }
+
+
+        }
+
+        label:has(input:checked){
+            border-color: $background-main;
+        }
+    }
+
+    
+
+
+    .center-text{
+        text-align: center;
+    }
+
+    .page{
+        padding: 1rem;
+    }

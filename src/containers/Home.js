@@ -6,33 +6,65 @@ import { Paginate } from "../components/common/Pagination/Paginate";
 import { SightingList } from "./SightingList";
 import {useParams} from 'react-router-dom'
 import { useMemo } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import SightingDetail from "./Sighting/SightingDetail";
 const Home = React.memo(({
     get_sightings,
     get_more_sightings,
     sightings,
     state
 }) => {
+    let history = useHistory();
+    const {id} = useParams()
 
     const {sightingPageParams} = useParams()
+    const query = new URLSearchParams(window.location.search);
 
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(id ? Number(id) : 1)
     const [newPage, setNewPage] = useState( 1)
     const [sightingPage, setSightingPage] = useState()
-    const [hasPrevPage, setHasPrevPage] = useState(false)
+    // const [hasPrevPage, setHasPrevPage] = useState(Boolean(localStorage.getItem('prev')) === true ? true : false)
+    // const [hasNextPage, setHasNextPage] = useState(Boolean(localStorage.getItem('next')) === true ? true : false)
+    // const [totalPages, setTotalPages] = useState(typeof Number(localStorage.getItem('totalPages')) == 'number'  ? Number(localStorage.getItem('totalPages')) : 0)
+    // const [sightingPage, setSightingPage] = useState()
+    const [hasPrevPage, setHasPrevPage] = useState( false)
     const [hasNextPage, setHasNextPage] = useState(false)
-    const [prevPage, setPrevPage] = useState(null)
-    const [nextPage, setNextPage] = useState(null)
-    const [totalPages, setTotalPages] = useState(0)
+    const [totalPages, setTotalPages] = useState( 0)
     const [docs, setDocs] = useState()
-    
 
-    const query = new URLSearchParams(window.location.search);
+    const [varr, setVarr] = useState(1)
+
+    const [queryPage, setQueryPage] = useState(query.get('page'))
+    
     console.log(query.get('page'))
+
+    useEffect(()=>{
+        setQueryPage(query.get('page'))
+        query.set('page', 1)
+    }, [queryPage])
+
+
+
+    if(query.get('page')){
+        console.log('existe')
+    }else{
+        console.log('no existe')    
+    }
+
+    useEffect(()=>{
+        // if(sightings[id]){
+        //     setDocs(sightingPage[page])
+        // }
+    }, [])
 
     ///mejorar usando useMemo
     useEffect(() => {
-        get_sightings(page);
         
+        if(sightings[page]){
+            setSightingPage(sightings[page])
+        }else{
+            get_sightings(page);
+        }
       }, []);
 
     //   useEffect(()=>{
@@ -63,18 +95,25 @@ const Home = React.memo(({
 
     async function handlePageClick(page){
         setPage(page)
+
+        /// history.ush <chang
+        history.push(`/${page}`)
     }
     //if there is a sightingPage to which there is no page it loads more sightings with the page
     useEffect(()=>{
         if(!sightings[page]){
             get_more_sightings(page)
         }
+
+        // chang id
     }, [page])
 
     // it set sightingPage to the current page sightings
     useEffect(()=>{
         setSightingPage(sightings[page])
         console.log('page1')
+
+        // <change id
     }, [sightings,page])
     
     //instatiate the pagination elements
@@ -85,13 +124,16 @@ const Home = React.memo(({
             setHasPrevPage(sightingPage.hasPrev)
             setTotalPages(sightingPage.totalPages)
             setDocs(sightingPage.results)
-            console.log('page2')
+            localStorage.setItem('next', JSON.stringify(sightingPage.hasNext));
+            localStorage.setItem('prev', JSON.stringify(sightingPage.hasPrev));
+            localStorage.setItem('totalPages', JSON.stringify(sightingPage.totalPages));
+            localStorage.setItem('docs', JSON.stringify(sightingPage.results))
         }
+
+        //added page <chang, id
     }, [sightingPage])
     return (<>
-        <div>page {page}</div>
-        {query.page}
-        <Link to="/dashboard"> dashboard </Link>
+        <h2 className="center-text">Last sightings in our records</h2>
         
         <SightingList 
             sightingPage={docs}
@@ -107,6 +149,8 @@ const Home = React.memo(({
             onPageClick={handlePageClick}
         />
         </>)
+
+        
 })
 
 const mapStateToProps = (state) => ({

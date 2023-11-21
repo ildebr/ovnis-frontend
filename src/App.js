@@ -38,11 +38,17 @@ function App() {
       <Router> 
         <Layout>
           <Switch>
-            <Route exact path='/:sightingPageParams' component={Home} />
-            <Route exact path='/sighting/:id' component={SightingDetail} />
-            <Route exact path='/login' component={Login} />
+          <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
-            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/:id' component={Home} />
+            
+
+
+            <Route exact path='/sighting/:id' component={SightingDetail} />
+            
+            {/* <PrivateRoute exact path='/dashboard' component={Dashboard} /> */}
           </Switch>
         </Layout>
       </Router>

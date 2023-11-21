@@ -37,45 +37,47 @@ const Login = ({ login, isAuthenticated, loading }) => {
                 <meta charSet="utf-8" />
                 <meta
                 name="description"
-                content="Aplicacion para amantes de los vinos"
+                content="UFO sighting website"
                 />
-                <title>Shop Time | Login</title>
-                {/*<link rel="canonical" href="http://mysite.com/activate" /> */}
+                <title>UFOW | Login</title>
             </Helmet>
 
+            <h2 className="center-text">LOGIN </h2>
 
-            <form onSubmit={(e) => onSubmit(e)}>
-                <div className="form-group">
-                <input
-                    className="form-control"
-                    type="email"
-                    placeholder="Email*"
+            <form className="auth-form" onSubmit={(e) => onSubmit(e)}>
+            <label for="email">
+                
+            
+                <input 
+                    type="email" 
                     name="email"
                     value={email}
-                    onChange={(e) => onChange(e)}
                     required
+                    onChange={(e) => onChange(e)} 
+                    className="username__input"
                 />
-                </div>
-                <div className="form-group">
-                <input
-                    className="form-control"
-                    type="password"
-                    placeholder="Password*"
+                <span className="input-placeholder">Email</span>
+            </label>
+            <label for="password">
+                
+            
+                <input 
+                    type="password" 
                     name="password"
                     value={password}
-                    onChange={(e) => onChange(e)}
-                    // minLength="6"
                     required
+                    onChange={(e) => onChange(e)} 
+                    className="username__input"
                 />
-                </div>
+                <span className="input-placeholder">Password</span>
+            </label>
+                
                 {loading ? (
                 <div className="mt-3 d-flex justify-content-center align-items-center">
                     <Loader type="Oval" color="#424242" height={50} width={50} />
                 </div>
                 ) : (
-                <button className="btn btn-primary" type="submit">
-                    Login
-                </button>
+                    <input type="submit" placeholder="Login" value="Login" />
                 )}
             </form>
         </div>

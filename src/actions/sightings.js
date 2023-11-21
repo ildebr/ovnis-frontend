@@ -10,11 +10,15 @@ import {
 LOAD_SIGHTING_ITEMS_SUCCESS,
 LOAD_SIGHTING_ITEMS_FAIL,
 SET_SIGHTING_LOADING,
+REMOVE_SIGHTING_LOADING,
 GET_SIGHTING_DETAIL_SUCCESS,
 GET_SIGHTING_DETAIL_FAIL
 } from './types';
 
 export const get_sightings = (page) => async dispatch => {
+    dispatch({
+        type: SET_SIGHTING_LOADING
+    });
     const config = {
         headers: {
             'Accept': 'application/json'
@@ -36,7 +40,13 @@ export const get_sightings = (page) => async dispatch => {
                     type: GET_SIGHTING_ITEMS_FAIL
                 });
             }
+            dispatch({
+                type: REMOVE_SIGHTING_LOADING
+            });
     } catch (err) {
+        dispatch({
+            type: REMOVE_SIGHTING_LOADING
+        });
         dispatch({
             type: GET_SIGHTING_ITEMS_FAIL
         });
@@ -49,18 +59,20 @@ export const get_sighting_detail = (id) => async dispatch => {
             'Accept': 'application/json'
         }
     };
-
     try {
 
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/sightings/${id}`, config);
 
             if (res.status === 200) {
                 console.log(res.data)
-                dispatch({
-                    type: GET_SIGHTING_DETAIL_SUCCESS,
-                    payload: res.data
-                });
-            } else {
+                console.log(res)
+                return res.data
+                
+            //     dispatch({
+            //         type: GET_SIGHTING_DETAIL_SUCCESS,
+            //         payload: res.data
+            //     });
+            // } else {
                 dispatch({
                     type: GET_SIGHTING_DETAIL_FAIL
                 });

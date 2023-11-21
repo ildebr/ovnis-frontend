@@ -93,15 +93,12 @@ export const signup = (user_name, email, password) => async dispatch => {
                 type: SIGNUP_FAIL
             });
             dispatch(setAlert('Error creating account, email or username already used', 'dangerss'+res.body));
-            console.log(res)
-            console.log(res.data)
         }
-
         dispatch({
             type: REMOVE_AUTH_LOADING
         });
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         dispatch({
             type: SIGNUP_FAIL
         });
@@ -122,7 +119,7 @@ export const load_user = () => async dispatch => {
         };
 
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/me/`, config);
 
             if (res.status === 200) {
                 dispatch({

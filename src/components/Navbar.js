@@ -3,7 +3,7 @@ import { logout } from '../actions/auth';
 import Alert from '../reducers/alert';
 import { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-
+import './Navbar.scss'
 const Navbar = ({
     isAuthenticated,
 }) => {
@@ -18,22 +18,22 @@ const Navbar = ({
             href='#!'>
                 Logout
             </a>
+            <Link to=''>My sightings</Link>
         </li>
     )
 
     const getNavbar = ( ) => (
-        <div>
-        <NavLink to="/">Home </NavLink>
+        <nav className='site-nav'>
+        <NavLink className='logo-nav' to="/">UFOW</NavLink>
         
         
 
-        {isAuthenticated ? authLinks : <p>No autenticado</p>}
-        </div>
+        {isAuthenticated ? authLinks : <> <div className='auth-links'> <NavLink className='auth-link' to="/login">Login</NavLink>  <NavLink className='auth-link' to="/signup">Sign up</NavLink> </div></>}
+        </nav>
     )
 
     const renderNavbar = () => {
         return (<Fragment>
-            <p>Barra</p>
             {getNavbar()}
             <Alert />
         </Fragment>)
@@ -43,7 +43,6 @@ const Navbar = ({
     return (
 
         <Fragment>
-            <p>Barra</p>
             {getNavbar()}
         </Fragment>
     

@@ -5,8 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #222;
+  /* background-color: #222; */
   color: white;
+  
+}
+
+*{
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 code {

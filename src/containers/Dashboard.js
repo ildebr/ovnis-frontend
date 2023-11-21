@@ -95,7 +95,7 @@ const Dashboard = ({
             name="description"
             content="Aplicacion para amantes de los vinos"
           />
-          <title>Shop Time | Dashboard</title>
+          <title>UFOW | Dashboard</title>
           {/*<link rel="canonical" href="http://mysite.com/activate" /> */}
         </Helmet>
         <div className="row">

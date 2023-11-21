@@ -9,12 +9,15 @@ import {
     UPDATE_SIGHTINGS_ITEMS_SUCCESS,
     LOAD_SIGHTING_ITEMS_SUCCESS,
     SET_SIGHTING_LOADING,
-    REMOVE_SIGHTING_LOADING
+    REMOVE_SIGHTING_LOADING,
+    GET_SIGHTING_DETAIL_SUCCESS,
+    GET_SIGHTING_DETAIL_FAIL
 } from '../actions/types';
 
 const initialState = {
     items: {},
-    loading: false
+    loading: false,
+    detail: {}
 };
 
 export default function(state = initialState, action) {

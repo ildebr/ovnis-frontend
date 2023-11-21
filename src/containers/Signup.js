@@ -30,6 +30,16 @@ const Signup = ({signup, isAuthenticated, loading, error, state}) => {
     }
         
     if(isAuthenticated) return <Redirect to="/" />;
+
+    // if(accountCreated) return <Redirect to='/login' />;
+
+    if(error && error?.Errormsg == 'Account created') console.log('creada');
+
+    // useEffect(()=>{
+    //     if(error && error?.Errormsg == 'Account created'){
+    //         console.log('creada')
+    //     }
+    // }, [state?.error])
     
 
     return (
@@ -37,48 +47,59 @@ const Signup = ({signup, isAuthenticated, loading, error, state}) => {
 
             {loading ? <Loader /> : "no"}
             {error && <div class='error__message'>{error.msg}</div>}
-    <h2>Alo perra</h2>
+    <h2 className="center-text">Sign up</h2>
 
     <Errormsg />
 
     
-    <form onSubmit={(e) => onSubmit(e)}>
-        <input 
-        type="email" 
-        name="email"
-        value={email}
-        required
-        onChange={(e) => onChange(e)} 
-        placeholder="Email"
-        />
+    <form class="auth-form" onSubmit={(e) => onSubmit(e)}>
 
-    <input 
-        type="text" 
-        name="user_name"
-        value={user_name}
-        required
-        onChange={(e) => onChange(e)} 
-        placeholder="Username"
-        />
-    <input
-        className="form-control"
-        type="password"
-        placeholder="Password*"
-        name="password"
-        value={password}
-        onChange={(e) => onChange(e)}
-        minLength="6"
-        required
-        />
+        <label for="email">
+                
+            
+            <input 
+                type="email" 
+                name="email"
+                value={email}
+                required
+                onChange={(e) => onChange(e)} 
+                className="username__input"
+            />
+            <span className="input-placeholder">Email</span>
+        </label>
 
-    <button type="submit">
-        Signup
-    </button>
+        <label for="user_name">
+                
+            
+            <input 
+                type="text" 
+                name="user_name"
+                value={user_name}
+                required
+                onChange={(e) => onChange(e)} 
+                className="username__input"
+            />
+            <span className="input-placeholder">User</span>
+        </label>
+
+        <label for="password">
+                
+            
+            <input 
+                type="password" 
+                name="password"
+                value={password}
+                required
+                onChange={(e) => onChange(e)} 
+                className="username__input"
+            />
+            <span className="input-placeholder">Password</span>
+        </label>
+        
     <input type="submit" placeholder="registrar" value="Registrar" />
     </form>
 
     
-    <input type="submit" placeholder="registrar" />
     </div>
     )
 }

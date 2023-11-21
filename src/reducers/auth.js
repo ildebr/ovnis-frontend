@@ -30,7 +30,8 @@ const initialState = {
     isAuthenticated: null,
     user: null,
     loading: false,
-    errMsg: ''
+    errMsg: '',
+    signupSuccess: false
 };
 
 export default function(state = initialState, action) {
@@ -98,6 +99,10 @@ export default function(state = initialState, action) {
                 access: localStorage.getItem('access')
             }
         case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                signupSuccess: true
+            }
         case SIGNUP_FAIL:
             // var msg = payload.errMsg
             // return {

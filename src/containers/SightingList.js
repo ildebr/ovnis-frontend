@@ -1,4 +1,5 @@
 import { Sighting } from "../components/common/sighting/Sighting"
+import "../pagestyle.scss"
 
 export function SightingList ({
     sightingPage
@@ -23,7 +24,7 @@ export function SightingList ({
     return <>
         {sightingPage ? 
         
-        <div>
+        <div className="page">
             {sightingPage.map((sight) => {
 
                 return <Sighting sighting={sight} />
@@ -32,7 +33,7 @@ export function SightingList ({
 
         :
 
-        <p>nada</p>
+        <p>There are no sightings</p>
         
         }
     </>

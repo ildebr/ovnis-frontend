@@ -1,3 +1,4 @@
+@import '../common.scss';
 
 .paginator-container{
     width: 100%;
@@ -14,7 +15,7 @@
   }
   
   .paginator-container .page-items .page-item{
-    padding: .5rem;
+    padding: .85rem;
     cursor: pointer;
     border-radius: 25px;
     height: 16px;
@@ -25,7 +26,7 @@
   }
   
   .paginator-container .page-items .page-item.active{
-    background-color: blue;
+    background-color: $element-color;
   }
   
   .paginator-container li{
