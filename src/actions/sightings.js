@@ -12,7 +12,12 @@ LOAD_SIGHTING_ITEMS_FAIL,
 SET_SIGHTING_LOADING,
 REMOVE_SIGHTING_LOADING,
 GET_SIGHTING_DETAIL_SUCCESS,
-GET_SIGHTING_DETAIL_FAIL
+GET_SIGHTING_DETAIL_FAIL,
+LOAD_USER_SIGHTING_ITEMS_SUCCESS,
+LOAD_USER_SIGHTING_ITEMS_FAIL,
+CREATE_SIGHTING_ITEM_SUCCESS,
+CREATE_SIGHTING_ITEM_FAIL,
+REMOVE_ITEM_CREATED_SUCCESS
 } from './types';
 
 export const get_sightings = (page) => async dispatch => {
@@ -86,19 +91,42 @@ export const get_sighting_detail = (id) => async dispatch => {
 
 
 export const get_user_sightings = ( ) => async dispatch =>{
-    if (localStorage.getItem('access')) {
+
         const config = {
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${localStorage.getItem('access')}`
             }
         };
 
+        
 
-        const body = JSON.stringify({
-            token: localStorage.getItem('access')
-        });
-    }
+        try{
+            dispatch({
+                type: SET_SIGHTING_LOADING
+            });
+
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/mySightings/`, config);
+            if (res.status === 200){
+                console.log(res)
+                dispatch({
+                    type: LOAD_USER_SIGHTING_ITEMS_SUCCESS,
+                    payload: res.data
+                });
+            }else{
+                dispatch({
+                    type: LOAD_USER_SIGHTING_ITEMS_FAIL
+                });
+            }
+        }catch(err){
+            dispatch({
+                type: REMOVE_SIGHTING_LOADING
+            });
+            dispatch({
+                type: LOAD_USER_SIGHTING_ITEMS_FAIL
+            });
+        }
+
 }
 
 
@@ -134,6 +162,47 @@ export const get_more_sightings = (page) => async dispatch => {
     }
 }
 
+export const create_user_sighting = (data) => async dispatch =>{
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access')}`
+        }
+    };
+
+    try{
+        dispatch({
+            type: SET_SIGHTING_LOADING
+        });
+
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/create/`, data, config);
+        if (res.status === 201){
+            console.log(res)
+            dispatch({
+                type: CREATE_SIGHTING_ITEM_SUCCESS,
+                payload: res.data
+            });
+        }else{
+            dispatch({
+                type: CREATE_SIGHTING_ITEM_FAIL
+            });
+        }
+    }catch(err){
+        dispatch({
+            type: REMOVE_SIGHTING_LOADING
+        });
+        dispatch({
+            type: CREATE_SIGHTING_ITEM_FAIL
+        });
+    }
+
+}
+
+export const remove_user_created_sucess = () => async dispatch =>{
+    dispatch({
+        type: REMOVE_ITEM_CREATED_SUCCESS,
+    })
+}
 
 // export const get_products_by_arrival = () => async dispatch => {
 //     const config = {

@@ -6,19 +6,21 @@ import { connect } from 'react-redux';
 import './Navbar.scss'
 const Navbar = ({
     isAuthenticated,
+    logout
 }) => {
     const [redirect, setRedirect] = useState(false);
     const logoutHandler = () => {
         logout()
         setRedirect(true)
+        console.log('logout')
     }
     const authLinks = (
         <li>
             <a onClick={logoutHandler}
             href='#!'>
-                Logout
+                Logout p
             </a>
-            <Link to=''>My sightings</Link>
+            <Link to='/dashboard'>My sightings</Link>
         </li>
     )
 

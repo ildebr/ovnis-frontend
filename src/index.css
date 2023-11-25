@@ -24,3 +24,7 @@ code {
   max-width: 1080px;
   margin: 0 auto;
 }
+
+.sm-pad{
+  padding: 1rem;
+}

@@ -12,6 +12,7 @@ import PrivateRoute from './hocs/privateRoute';
 
 import store from './store';
 import SightingDetail  from './containers/Sighting/SightingDetail';
+import SightingForm  from './containers/Sighting/SightingForm';
 
 
 // const App = () =>{
@@ -38,17 +39,22 @@ function App() {
       <Router> 
         <Layout>
           <Switch>
+          <PrivateRoute exact path='/dashboard' component={Dashboard} />
+          <PrivateRoute exact path='/sighting/create' component={SightingForm} />
           <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
-            <Route exact path='/dashboard' component={Dashboard} />
+            {/* <Route exact path='/dashboard' component={Dashboard} /> */}
             <Route exact path='/' component={Home} />
             <Route exact path='/:id' component={Home} />
             
 
-
+            {/* <PrivateRoute path='/dashboard'>
+              <Dashboard />
+            </PrivateRoute> */}
             <Route exact path='/sighting/:id' component={SightingDetail} />
             
-            {/* <PrivateRoute exact path='/dashboard' component={Dashboard} /> */}
+            
+            
           </Switch>
         </Layout>
       </Router>

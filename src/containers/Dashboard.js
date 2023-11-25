@@ -3,20 +3,29 @@ import { Helmet } from "react-helmet";
 // import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import {get_sightings} from "../actions/sightings"
+import {get_sightings, get_user_sightings} from "../actions/sightings"
+
+import axios from 'axios';
 const Dashboard = ({
     get_sightings,
     user,
     sightingss,
+    userItems,
+    get_user_sightings
   }) => {
-    console.log(sightingss)
-
-    const [page, setPage] = useState(1)
+    
 
     useEffect(() => {
-      get_sightings();
+      
+        get_user_sightings()
+
+        setTimeout(()=>{
+          get_user_sightings()
+        }, 200)
+      
     }, []);
-  
+
+
 
   
     const userInfo = () => {
@@ -54,16 +63,7 @@ const Dashboard = ({
       );
     };
   
-    const purchaseHistory = () => {
-      return (
-        <div className="card mb-5">
-          <h3 className="card-header">Purchase History</h3>
-          <div className="card-body">
-            hola
-          </div>
-        </div>
-      );
-    };
+
   
     // const userProfile = () => {
     //   if (profile && profile !== null && profile !== undefined) {
@@ -85,10 +85,12 @@ const Dashboard = ({
     //     return <Fragment></Fragment>;
     //   }
     // };
+
+    console.log('dashboard')
   
   
     return (
-      <div className="container mt-5">
+      <div className="container mt-5 sm-pad">
         <Helmet>
           <meta charSet="utf-8" />
           <meta
@@ -99,8 +101,18 @@ const Dashboard = ({
           {/*<link rel="canonical" href="http://mysite.com/activate" /> */}
         </Helmet>
         <div className="row">
-          <h1>iniciaste sesion</h1>
-          <Link to="/" > home </Link>
+          <h1>Hello, {user.first_name}</h1>
+          <p>Do you have a sighting you want to publish? <Link to={'/sighting/create'}>Report a sighting</Link></p>
+
+          <div >
+              <h2>Your Sightings</h2>
+
+              <div>
+                {userItems.length >= 1 ? userItems?.map((item)=>{
+                  return <p><Link to={`/sighting/${item.id}`}>{item.title} {item.country}</Link></p>
+                }) : <></>}
+              </div>
+          </div>
         </div>
       </div>
     );
@@ -108,10 +120,12 @@ const Dashboard = ({
   
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  sightingss: state.sightings.items
+  sightingss: state.sightings.items,
+  userItems : state.sightings.userItems
 });
   
 export default connect(mapStateToProps, {
-  get_sightings
+  get_sightings,
+  get_user_sightings
 })(Dashboard);
   

@@ -45,7 +45,7 @@ const Signup = ({signup, isAuthenticated, loading, error, state}) => {
     return (
         <div>
 
-            {loading ? <Loader /> : "no"}
+            {loading ? <Loader /> : <></>}
             {error && <div class='error__message'>{error.msg}</div>}
     <h2 className="center-text">Sign up</h2>
 

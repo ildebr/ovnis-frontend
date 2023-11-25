@@ -25,6 +25,7 @@ import {
     USER_LOADED_FAIL,
     LOGOUT
 } from './types';
+import {jwtDecode} from "jwt-decode"
 
 export const check_authenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {
@@ -110,37 +111,51 @@ export const signup = (user_name, email, password) => async dispatch => {
 };
 
 export const load_user = () => async dispatch => {
-    if (localStorage.getItem('access')) {
-        const config = {
-            headers: {
-                'Authorization': `JWT ${localStorage.getItem('access')}`,
-                'Accept': 'application/json'
-            }
-        };
+    console.log()
 
-        try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/me/`, config);
+    let user_data = jwtDecode(localStorage.getItem('access'))
 
-            if (res.status === 200) {
-                dispatch({
-                    type: USER_LOADED_SUCCESS,
-                    payload: res.data
-                });
-            } else {
-                dispatch({
-                    type: USER_LOADED_FAIL
-                });
-            }
-        } catch (err) {
-            dispatch({
-                type: USER_LOADED_FAIL
-            });
-        }
+    if (user_data.user_name){
+        dispatch({
+            type: USER_LOADED_SUCCESS,
+            payload: user_data
+        });
     } else {
         dispatch({
             type: USER_LOADED_FAIL
         });
     }
+    // if (localStorage.getItem('access')) {
+    //     const config = {
+    //         headers: {
+    //             'Authorization': `JWT ${localStorage.getItem('access')}`,
+    //             'Accept': 'application/json'
+    //         }
+    //     };
+
+    //     try {
+    //         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/me/`, config);
+
+    //         if (res.status === 200) {
+    //             dispatch({
+    //                 type: USER_LOADED_SUCCESS,
+    //                 payload: res.data
+    //             });
+    //         } else {
+    //             dispatch({
+    //                 type: USER_LOADED_FAIL
+    //             });
+    //         }
+    //     } catch (err) {
+    //         dispatch({
+    //             type: USER_LOADED_FAIL
+    //         });
+    //     }
+    // } else {
+    //     dispatch({
+    //         type: USER_LOADED_FAIL
+    //     });
+    // }
 };
 
 export const login = (email, password) => async dispatch => {
@@ -167,6 +182,7 @@ export const login = (email, password) => async dispatch => {
                 type: LOGIN_SUCCESS,
                 payload: res.data
             });
+            
             dispatch(load_user());
             dispatch({
                 type: REMOVE_AUTH_LOADING
@@ -494,6 +510,7 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
 };
 
 export const logout = () => dispatch => {
+    console.log('log')
     dispatch({
         type: LOGOUT
     });
