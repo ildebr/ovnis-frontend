@@ -20,7 +20,7 @@
   <h3 align="center">Ovnis Watcher</h3>
 
   <p align="center">
-    Ovnis watcher is a web where you can see the latest documented sightings of ovnis.
+    Ovnis watcher is a web where you can see the latest documented sightings of ovnis. Live https://ovnis-app.onrender.com/
     <br />
     <a href="https://github.com/ildebr/ovnis-frontend"><strong>Explore the docs »</strong></a>
     <br />
